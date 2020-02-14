@@ -1,3 +1,13 @@
+CREATE TABLE transact
+(
+  -- serial increments
+  -- priamery key = int and must be unique
+  t_id SERIAL PRIMARY KEY,
+  t_date date,
+  t_amount real -- 32 decimals 
+
+)
+
 INSERT INTO transact (t_date, t_amount) VALUES 
 ('2020-02-10', 560.54),
 ('2020-02-10',-4.87),

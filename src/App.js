@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component as Comp } from 'react'
+import TransactionField from './component/TransactionField'
+import axios from 'axios'
+import './App.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Comp {
+  constructor() {
+    super()
+    this.state = {
+      transactions: []
+    }
+  }
+  getTransactions = () => {
+    axios.get('/api/transactions').then(res => {
+      this.setState({
+        transactions: res.data
+      })
+    })
+  }
+
+  componentDidMount() {
+    this.getTransactions()
+  }
+
+  render() {
+    const { transactions } = this.state
+    return (
+      <div className='App'>
+        <TransactionField
+          transactions={transactions}
+          getTransactions={this.getTransactions}
+        />
+      </div>
+    )
+  }
 }
-
-export default App;
